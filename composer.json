@@ -1,0 +1,50 @@
+{
+    "name": "inwebcomp/translations-parser",
+    "description": "Parse files and pull translatable phrases",
+    "keywords": [
+        "inwebcomp",
+        "translations-parser"
+    ],
+    "homepage": "https://github.com/inwebcomp/translations-parser",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Topalo",
+            "email": "inwebcomp@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "larapack/dd": "^1.0",
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "InWeb\\TranslationsParser\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "InWeb\\TranslationsParser\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "../../../vendor/bin/phpunit --configuration phpunit.xml"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "InWeb\\TranslationsParser\\TranslationsParserServiceProvider"
+            ],
+            "aliases": {
+                "TranslationsParser": "InWeb\\TranslationsParser\\TranslationsParserFacade"
+            }
+        }
+    }
+}
