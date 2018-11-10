@@ -8,6 +8,54 @@ You can install the package via composer:
 composer require inwebcomp/translations-parser
 ```
 
+Add facade to your _config/app.php_ file
+``` php
+'aliases' => [
+    // ...
+    'TranslationsParser' => InWeb\TranslationsParser\TranslationsParserFacade::class
+],
+```
+
+### Configuration
+
+Run to publish **translations-parser.php** configuration file
+``` bash
+php artisan vendor:publish --provider="InWeb\TranslationsParser\TranslationsParserServiceProvider"
+```
+
+There you can change locales and folders that are used by artisan command
+``` php
+// Locales to save phrases
+'locales' => [
+    'ru',
+    'en'
+],
+
+// Directories in which phrases are searched
+'directories' => [
+    base_path('app'),
+    resource_path('views'),
+    resource_path('js')
+],
+
+// Excluded directories or files
+'excluded' => [
+    base_path('app/Nova')
+],
+
+// Where is your folder with translations
+'lang_files_directory' => resource_path('lang')
+```
+
+Sometimes you receive your locales list during the application run. You can just overwrite this setting in your code: 
+``` php
+\Config::set('translations-parser.locales', [
+    'en',
+    'fr
+]);
+```
+
+
 ## Usage
 
 ### Artisan commands
