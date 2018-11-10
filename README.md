@@ -1,7 +1,7 @@
 Parse your files and pull translatable phrases. 
 
 ## Requirements
-- PHP >= 7.0
+- PHP >= 7.1
 
 ## Installation
 
