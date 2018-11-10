@@ -1,5 +1,8 @@
 Parse your files and pull translatable phrases. 
 
+## Requirements
+- PHP >= 7.0
+
 ## Installation
 
 You can install the package via composer:
