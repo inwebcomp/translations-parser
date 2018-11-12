@@ -11,6 +11,11 @@ You can install the package via composer:
 composer require inwebcomp/translations-parser
 ```
 
+Give access to you ./lang folder 
+```bash
+chmod 0777 -R ./resources/lang
+```
+
 Add facade to your _config/app.php_ file
 ``` php
 'aliases' => [
