@@ -9,9 +9,10 @@ class Parser
 {
     /**
      * @param string $source
+     * @param bool $withGroups
      * @return array
      */
-    public function parseFromString($source)
+    public function parseFromString($source, $withGroups = true)
     {
         $functions = [
             'lang',
@@ -38,7 +39,7 @@ class Parser
 
         if (preg_match_all("/$stringPattern/siU", $source, $matches)) {
             foreach ($matches['string'] as $key) {
-                if (preg_match("/(^(([a-zA-Z0-9_-]+)::)*[a-zA-Z0-9_-]+([.][^\1)\ ]+)+$)/siU", $key, $groupMatches)) {
+                if (! $withGroups and preg_match("/(^(([a-zA-Z0-9_-]+)::)*[a-zA-Z0-9_-]+([.][^\1)\ ]+)+$)/siU", $key, $groupMatches)) {
                     continue;
                 }
                 $stringKeys[] = $key;
@@ -52,9 +53,10 @@ class Parser
      * @param array|string $directories
      * @param array $exclude
      * @param string $pattern A pattern (a regexp, a glob, or a string)
+     * @param bool $withGroups
      * @return array
      */
-    public function parseFromDirectory($directories, $exclude = [], $pattern = '/\.(php|js|vue)$/')
+    public function parseFromDirectory($directories, $exclude = [], $pattern = '/\.(php|js|vue)$/', $withGroups = true)
     {
         $finder = new Finder();
 
@@ -66,7 +68,7 @@ class Parser
             if (in_array($file, $exclude))
                 continue;
 
-            $stringKeys = array_merge($stringKeys, $this->parseFromString($file->getContents()));
+            $stringKeys = array_merge($stringKeys, $this->parseFromString($file->getContents(), $withGroups));
         }
 
         return $stringKeys;
@@ -75,12 +77,13 @@ class Parser
     /**
      * @param string|array $source
      * @param array $exclude
+     * @param bool $withGroups
      * @return array
      */
-    public function parse($source, $exclude = [])
+    public function parse($source, $exclude = [], $withGroups = true)
     {
         if (is_array($source))
-            $phrases = $this->parseFromDirectory($source, $exclude);
+            $phrases = $this->parseFromDirectory($source, $exclude, null, $withGroups);
         else
             $phrases = $this->parseFromString($source);
 
@@ -90,6 +93,7 @@ class Parser
     /**
      * @param string $locale
      * @return array|null
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function getParsed($locale)
     {
@@ -110,6 +114,7 @@ class Parser
      * @param array $phrases
      * @param bool $force
      * @return int
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function save($locale, $phrases, $force = false)
     {
@@ -144,6 +149,7 @@ class Parser
      * @param string $original
      * @param string $translation
      * @return int
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function translate($locale, $original, $translation)
     {
