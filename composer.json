@@ -1,6 +1,7 @@
 {
     "name": "inweb/translations-parser",
     "description": "Parse files and pull translatable phrases",
+    "version": "8.0.0",
     "keywords": [
         "inwebcomp",
         "translations-parser"
