@@ -140,7 +140,9 @@ class Parser
 
     protected function isAssoc(array $arr): bool
     {
-        if ([] === $arr) return false;
+        if ([] === $arr)
+            return false;
+
         return array_keys($arr) !== range(0, count($arr) - 1);
     }
 
