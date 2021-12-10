@@ -2,10 +2,10 @@
 
 return [
     // Locales to save phrases
-    'locales' => [
+    'locales' => config('inweb.languages', [
         'ru',
         'en'
-    ],
+    ]),
 
     // Directories in which phrases are searched
     'directories' => [
@@ -16,7 +16,7 @@ return [
 
     // Excluded directories or files
     'excluded' => [
-        base_path('app/Nova')
+        base_path('app/Admin')
     ],
 
     // Where is your folder with translations

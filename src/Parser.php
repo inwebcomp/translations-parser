@@ -12,7 +12,7 @@ class Parser
      * @param bool $withGroups
      * @return array
      */
-    public function parseFromString($source, $withGroups = true)
+    public function parseFromString(string $source, bool $withGroups = true): array
     {
         $functions = [
             'lang',
@@ -56,7 +56,7 @@ class Parser
      * @param bool $withGroups
      * @return array
      */
-    public function parseFromDirectory($directories, $exclude = [], $pattern = '/\.(php|js|vue)$/', $withGroups = true)
+    public function parseFromDirectory($directories, array $exclude = [], string $pattern = '/\.(php|js|vue)$/', bool $withGroups = true): array
     {
         $finder = new Finder();
 
@@ -80,7 +80,7 @@ class Parser
      * @param bool $withGroups
      * @return array
      */
-    public function parse($source, $exclude = [], $withGroups = true)
+    public function parse($source, array $exclude = [], bool $withGroups = true): array
     {
         if (is_array($source))
             $phrases = $this->parseFromDirectory($source, $exclude, null, $withGroups);
@@ -95,7 +95,7 @@ class Parser
      * @return array|null
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function getParsed($locale)
+    public function getParsed(string $locale): ?array
     {
         $langDir = config('translations-parser.lang_files_directory');
 
@@ -116,7 +116,7 @@ class Parser
      * @return int
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function save($locale, $phrases, $force = false)
+    public function save(string $locale, array $phrases, bool $force = false): int
     {
         $file = config('translations-parser.lang_files_directory') . '/' . $locale . '.json';
 
@@ -138,7 +138,7 @@ class Parser
         return \File::put($file, json_encode($phrases, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
 
-    protected function isAssoc(array $arr)
+    protected function isAssoc(array $arr): bool
     {
         if ([] === $arr) return false;
         return array_keys($arr) !== range(0, count($arr) - 1);
@@ -151,7 +151,7 @@ class Parser
      * @return int
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function translate($locale, $original, $translation)
+    public function translate(string $locale, string $original, string $translation): int
     {
         $file = config('translations-parser.lang_files_directory') . '/' . $locale . '.json';
 

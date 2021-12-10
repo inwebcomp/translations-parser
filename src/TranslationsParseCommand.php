@@ -23,16 +23,20 @@ class TranslationsParseCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return int
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function handle()
+    public function handle(): int
     {
         $config = config('translations-parser');
+        $parser = new Parser();
 
-        $phrases = \TranslationsParser::parseFromDirectory($config['directories'], $config['excluded']);
+        $phrases = $parser->parseFromDirectory($config['directories'], $config['excluded']);
 
         foreach ($config['locales'] as $locale) {
-            \TranslationsParser::save($locale, $phrases, $this->option('force'));
+            $parser->save($locale, $phrases, $this->option('force'));
         }
+
+        return self::SUCCESS;
     }
 }

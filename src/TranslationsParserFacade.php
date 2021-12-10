@@ -4,9 +4,6 @@ namespace InWeb\TranslationsParser;
 
 use Illuminate\Support\Facades\Facade;
 
-/**
- * @see \Spatie\Skeleton\TranslationsParser
- */
 class TranslationsParserFacade extends Facade
 {
     /**
