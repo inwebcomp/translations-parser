@@ -147,11 +147,11 @@ class Parser
     /**
      * @param string $locale
      * @param string $original
-     * @param string $translation
+     * @param string|null $translation
      * @return int
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function translate(string $locale, string $original, string $translation): int
+    public function translate(string $locale, string $original, string $translation = null): int
     {
         $file = config('translations-parser.lang_files_directory') . '/' . $locale . '.json';
 

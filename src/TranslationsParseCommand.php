@@ -37,6 +37,8 @@ class TranslationsParseCommand extends Command
             $parser->save($locale, $phrases, $this->option('force'));
         }
 
+        $this->getOutput()->success("Translations have been parsed");
+
         return self::SUCCESS;
     }
 }
