@@ -39,5 +39,7 @@
                 "TranslationsParser": "InWeb\\TranslationsParser\\TranslationsParserFacade"
             }
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
